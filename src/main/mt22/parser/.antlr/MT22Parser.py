@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20")
         buf.write("\7\4\2\t\2\3\2\3\2\3\2\2\2\3\2\2\2\2\5\2\4\3\2\2\2\4\5")
         buf.write("\7\2\2\3\5\3\3\2\2\2\2")
         return buf.getvalue()
@@ -30,8 +30,9 @@ class MT22Parser ( Parser ):
     literalNames = [ "<INVALID>", "'\n'" ]
 
     symbolicNames = [ "<INVALID>", "NEWLINE", "COMMENT_C", "COMMENT_CPP", 
-                      "IDENTIFIER", "OPERATOR", "SEPERATOR", "INT", "FLOAT", 
-                      "BOOLEAN", "WS", "ERROR_CHAR", "UNCLOSE_STRING", "ILLEGAL_ESCAPE" ]
+                      "IDENTIFIER", "OPERATOR", "SEPERATOR", "FLOAT", "INT", 
+                      "BOOLEAN", "STRING", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
+                      "ILLEGAL_ESCAPE" ]
 
     RULE_program = 0
 
@@ -44,13 +45,14 @@ class MT22Parser ( Parser ):
     IDENTIFIER=4
     OPERATOR=5
     SEPERATOR=6
-    INT=7
-    FLOAT=8
+    FLOAT=7
+    INT=8
     BOOLEAN=9
-    WS=10
-    ERROR_CHAR=11
-    UNCLOSE_STRING=12
-    ILLEGAL_ESCAPE=13
+    STRING=10
+    WS=11
+    ERROR_CHAR=12
+    UNCLOSE_STRING=13
+    ILLEGAL_ESCAPE=14
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)

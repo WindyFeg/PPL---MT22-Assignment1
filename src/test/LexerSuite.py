@@ -65,5 +65,21 @@ class LexerSuite(unittest.TestCase):
         self.assertTrue(TestLexer.test(".0987", ".,Error Token 0", 115))
     def test_decimal2(self):
         """test decimal2"""
-        self.assertTrue(TestLexer.test("0.0987 0.123e12 114e2 12.e2", "0.0987,0.123e12,114e2,Error Token 1", 116))
+        self.assertTrue(TestLexer.test("1.234 1.2e3 7E-10 1_234.567", "1.234,1.2e3,7E-10,1234.567,<EOF>", 116))
+    
+    def test_decimal3(self):
+        """test decimal2"""
+        self.assertTrue(TestLexer.test("1_23.234 1_3_4.2e3 7E-10 1_234.567", "123.234,134.2e3,7E-10,1234.567,<EOF>", 117))
+
+    def test_bool(self):
+        """test bool"""
+        self.assertTrue(TestLexer.test("true false false3 34true", "true,false,false3,34,true,<EOF>", 118))
+
+    def test_String(self):
+        """test bool"""
+        self.assertTrue(TestLexer.test("\"Hello world\"", "Hello world,<EOF>", 119))
+
+    # def test_String2(self):
+    #     """test bool"""
+    #     self.assertTrue(TestLexer.test("true false false3 34true", "true,false,false3,Error Token 3,<EOF>", 118))
 

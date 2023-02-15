@@ -13,6 +13,7 @@ null
 null
 null
 null
+null
 
 token symbolic names:
 null
@@ -22,9 +23,10 @@ COMMENT_CPP
 IDENTIFIER
 OPERATOR
 SEPERATOR
-INT
 FLOAT
+INT
 BOOLEAN
+STRING
 WS
 ERROR_CHAR
 UNCLOSE_STRING
@@ -35,4 +37,4 @@ program
 
 
 atn:
-[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 15, 7, 4, 2, 9, 2, 3, 2, 3, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 5, 2, 4, 3, 2, 2, 2, 4, 5, 7, 2, 2, 3, 5, 3, 3, 2, 2, 2, 2]
+[3, 24715, 42794, 33075, 47597, 16764, 15335, 30598, 22884, 3, 16, 7, 4, 2, 9, 2, 3, 2, 3, 2, 3, 2, 2, 2, 3, 2, 2, 2, 2, 5, 2, 4, 3, 2, 2, 2, 4, 5, 7, 2, 2, 3, 5, 3, 3, 2, 2, 2, 2]

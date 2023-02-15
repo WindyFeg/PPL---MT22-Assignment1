@@ -32,22 +32,27 @@ SEPERATOR: '(' | ')' | '[' | ']' | '.' | ',' | ';' | ':' | '=' | '{' | '}';
 // 3.7 Literals
 // INTEGER FLOAT BOOLEAN STRING ARRAY
 
-INT: ([1-9] (UNDERLINE DIGIT | DIGIT)* | ZERO ' '){
+
+FLOAT:  ((POSINT | ZERO)+ '.' DECIMAL EXPONENT?
+		| (POSINT | ZERO)+ EXPONENT ('.'  DECIMAL)?){
+ 	self.text = self.text.replace('_','').replace(' ','')
+};
+
+INT: (POSINT | ZERO ' '){
  	self.text = self.text.replace('_','').replace(' ','')
 } ;
-
-FLOAT:  INT '.' DECIMAL EXPONENT?
-		| INT EXPONENT '.'  DECIMAL
-		| INT '.' DECIMAL EXPONENT;
 
 BOOLEAN: 'true' | 'false';
 
 // STRING:;
-
-
+STRING: DB (LETTER | ' ')* DB{
+	self.text = self.text[1:-1]
+};
 
 
 //Basic fragment
+fragment POSINT: [1-9] (UNDERLINE DIGIT | DIGIT)*;
+
 fragment DECIMAL:  DIGIT+;
 
 fragment EXPONENT: ('e'|'E') ('+'|'-')? DIGIT+;
@@ -60,6 +65,9 @@ fragment KEYWORD: 'auto' | 'break' | 'boolean' | 'do' | 'else' | 'false' | 'floa
 
 fragment ZERO: '0';
 fragment UNDERLINE: '_';
+fragment DB: '"';
+
+// fragment DB: '\"';
 
 WS : [ \t\b\f\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
