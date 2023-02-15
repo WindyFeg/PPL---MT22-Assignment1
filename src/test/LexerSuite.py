@@ -79,7 +79,14 @@ class LexerSuite(unittest.TestCase):
         """test bool"""
         self.assertTrue(TestLexer.test("\"Hello world\"", "Hello world,<EOF>", 119))
 
-    # def test_String2(self):
-    #     """test bool"""
-    #     self.assertTrue(TestLexer.test("true false false3 34true", "true,false,false3,Error Token 3,<EOF>", 118))
+    def test_String3(self):
+        """test bool"""
+        self.assertTrue(TestLexer.test("\"Hello\\nworld\\nThis is a string containing tab\\t\"", "Hello\\nworld\\nThis is a string containing tab\\t,<EOF>", 120))
 
+    def test_String4(self):
+        """test String"""
+        self.assertTrue(TestLexer.test("\"The first is a close string\"\n\"This is a unclose string", "The first is a close string,Unclosed String: This is a unclose string", 121))
+
+    def test_String5(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("\"Bac Ho noi \\\" Yeu to quoc yeu dong bao,... \\\" \"", "Bac Ho noi \" Yeu to quoc yeu dong bao,... \" ,<EOF>", 122))

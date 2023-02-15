@@ -44,13 +44,19 @@ INT: (POSINT | ZERO ' '){
 
 BOOLEAN: 'true' | 'false';
 
-// STRING:;
-STRING: DB (LETTER | ' ')* DB{
-	self.text = self.text[1:-1]
+// STRING
+STRING: (DB (ESCAPE|~[\r\n])* DB) {
+    self.text = self.text[1:-1].replace('\\"', '"').replace("\\'", "'").replace('\\\\', '\\')
 };
+
+fragment ESCAPE: '\\' ( 'b' | 'f' | 'n' | 'r' | 't' | '\'' | '\"' | '\\' );
 
 
 //Basic fragment
+fragment DB: '"';
+fragment ZERO: '0';
+fragment UNDERLINE: '_';
+
 fragment POSINT: [1-9] (UNDERLINE DIGIT | DIGIT)*;
 
 fragment DECIMAL:  DIGIT+;
@@ -63,15 +69,9 @@ fragment DIGIT: [0-9];
 
 fragment KEYWORD: 'auto' | 'break' | 'boolean' | 'do' | 'else' | 'false' | 'float' | 'for' | 'function' | 'if' | 'integer' | 'return' | 'string' | 'true' | 'while' | 'void' | 'out' | 'continue' | 'of' | 'inherit' | 'array' ;
 
-fragment ZERO: '0';
-fragment UNDERLINE: '_';
-fragment DB: '"';
-
-// fragment DB: '\"';
-
 WS : [ \t\b\f\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 
 ERROR_CHAR: .{raise ErrorToken(self.text)};
-UNCLOSE_STRING: .{raise ErrorToken(self.text)};
-ILLEGAL_ESCAPE: .{raise ErrorToken(self.text)};
+UNCLOSE_STRING: DB ~[\r\n]* {raise UncloseString(self.text[1:])};
+ILLEGAL_ESCAPE: .;
