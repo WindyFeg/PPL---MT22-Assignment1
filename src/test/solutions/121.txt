@@ -1,1 +1,1 @@
-The first is a close string,Unclosed String: This is a unclose string
+The first is a close string,",This,is,a,unclose,string,<EOF>

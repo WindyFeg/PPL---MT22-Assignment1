@@ -50,11 +50,11 @@ class LexerSuite(unittest.TestCase):
     
     def test_Zero(self):
         """test Integer zero """
-        self.assertTrue(TestLexer.test("0a12", "Error Token 0", 112))
+        self.assertTrue(TestLexer.test("0a12", "0,a12,<EOF>", 112))
 
     def test_Integer2(self):
         """test Integer """
-        self.assertTrue(TestLexer.test("0 aa12 0_12", "0,aa12,Error Token 0", 113))
+        self.assertTrue(TestLexer.test("0 aa12 0_12", "0,aa12,0,_12,<EOF>", 113))
 
     def test_Integer3(self):
         """test Integer """
@@ -62,7 +62,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_decimal(self):
         """test decimal"""
-        self.assertTrue(TestLexer.test(".0987", ".,Error Token 0", 115))
+        self.assertTrue(TestLexer.test(".0987", ".,0,987,<EOF>", 115))
     def test_decimal2(self):
         """test decimal2"""
         self.assertTrue(TestLexer.test("1.234 1.2e3 7E-10 1_234.567", "1.234,1.2e3,7E-10,1234.567,<EOF>", 116))
@@ -90,3 +90,23 @@ class LexerSuite(unittest.TestCase):
     def test_String5(self):
         """test String again"""
         self.assertTrue(TestLexer.test("\"Bac Ho noi \\\" Yeu to quoc yeu dong bao,... \\\" \"", "Bac Ho noi \" Yeu to quoc yeu dong bao,... \" ,<EOF>", 122))
+
+    def testArray(self):
+        """test TestArray"""
+        self.assertTrue(TestLexer.test("{1, 5, 7, 12}", "{1, 5, 7, 12},<EOF>", 123))
+
+    def testArray2(self):
+        """test TestArray2"""
+        self.assertTrue(TestLexer.test("{\"Kangxi\"    , \"Yongzheng\", \"Qianlong\"}", "{\"Kangxi\",\"Yongzheng\",\"Qianlong\"},<EOF>", 124))
+
+    def testArray3(self):
+        """test testArray"""
+        self.assertTrue(TestLexer.test("{1.2, 3.4,   5.6, 7_88.2}", "{1.2,3.4,5.6,788.2} ,<EOF>", 125))
+
+    def testArray4(self):
+        """test testArray"""
+        self.assertTrue(TestLexer.test("{true, true, false, false}", "{true,true,false,false} ,<EOF>", 126))\
+        
+    def testArray5(self):
+        """test testArray"""
+        self.assertTrue(TestLexer.test("1,2,3,4,5.4,5_6.34,true", "1,2,3,4,5,5.4,56.34,true,<EOF>", 127))

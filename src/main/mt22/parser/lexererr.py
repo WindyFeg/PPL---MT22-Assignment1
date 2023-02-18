@@ -18,3 +18,7 @@ class UncloseString(LexerError):
 class IllegalEscape(LexerError):
     def __init__(self, s):
         self.message = "Illegal Escape In String: " + s
+
+class IllegalNumber(LexerError):
+    def __init__(self, s):
+        self.message = "Illegal Number: " + s

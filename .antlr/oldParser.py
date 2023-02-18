@@ -1,4 +1,4 @@
-# Generated from main/mt22/parser/MT22.g4 by ANTLR 4.9.2
+# Generated from f:\Univercity\S2 Y3\PRINCIPLES OF PROGRAMMING LANGUAGES\Assignment\assignment1\old.g4 by ANTLR 4.9.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -11,15 +11,15 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\37")
         buf.write("\7\4\2\t\2\3\2\3\2\3\2\2\2\3\2\2\2\2\5\2\4\3\2\2\2\4\5")
         buf.write("\7\2\2\3\5\3\3\2\2\2\2")
         return buf.getvalue()
 
 
-class MT22Parser ( Parser ):
+class oldParser ( Parser ):
 
-    grammarFileName = "MT22.g4"
+    grammarFileName = "old.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -27,11 +27,17 @@ class MT22Parser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'\n'" ]
+    literalNames = [ "<INVALID>", "'\n'", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "','", "':'", 
+                     "'='", "';'", "'.'", "'['", "']'", "'('", "')'", "'{'", 
+                     "'}'", "'\"'", "'0'", "'_'" ]
 
     symbolicNames = [ "<INVALID>", "NEWLINE", "COMMENT_C", "COMMENT_CPP", 
-                      "IDENTIFIER", "OPERATOR", "SEPERATOR", "FLOAT", "INT", 
-                      "BOOLEAN", "STRING", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
+                      "OPERATOR", "FLOAT", "INT", "BOOLEAN", "IDENTIFIER", 
+                      "STRING", "SEPERATOR", "ESCAPE", "COM", "COL", "EQU", 
+                      "SEM", "DOT", "LSB", "RSB", "LB", "RB", "LCB", "RCB", 
+                      "DB", "ZERO", "UNDERLINE", "WS", "ERROR_CHAR", "UNCLOSE_STRING", 
                       "ILLEGAL_ESCAPE" ]
 
     RULE_program = 0
@@ -42,17 +48,32 @@ class MT22Parser ( Parser ):
     NEWLINE=1
     COMMENT_C=2
     COMMENT_CPP=3
-    IDENTIFIER=4
-    OPERATOR=5
-    SEPERATOR=6
-    FLOAT=7
-    INT=8
-    BOOLEAN=9
-    STRING=10
-    WS=11
-    ERROR_CHAR=12
-    UNCLOSE_STRING=13
-    ILLEGAL_ESCAPE=14
+    OPERATOR=4
+    FLOAT=5
+    INT=6
+    BOOLEAN=7
+    IDENTIFIER=8
+    STRING=9
+    SEPERATOR=10
+    ESCAPE=11
+    COM=12
+    COL=13
+    EQU=14
+    SEM=15
+    DOT=16
+    LSB=17
+    RSB=18
+    LB=19
+    RB=20
+    LCB=21
+    RCB=22
+    DB=23
+    ZERO=24
+    UNDERLINE=25
+    WS=26
+    ERROR_CHAR=27
+    UNCLOSE_STRING=28
+    ILLEGAL_ESCAPE=29
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -71,28 +92,22 @@ class MT22Parser ( Parser ):
             self.parser = parser
 
         def EOF(self):
-            return self.getToken(MT22Parser.EOF, 0)
+            return self.getToken(oldParser.EOF, 0)
 
         def getRuleIndex(self):
-            return MT22Parser.RULE_program
-
-        def accept(self, visitor:ParseTreeVisitor):
-            if hasattr( visitor, "visitProgram" ):
-                return visitor.visitProgram(self)
-            else:
-                return visitor.visitChildren(self)
+            return oldParser.RULE_program
 
 
 
 
     def program(self):
 
-        localctx = MT22Parser.ProgramContext(self, self._ctx, self.state)
+        localctx = oldParser.ProgramContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_program)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2
-            self.match(MT22Parser.EOF)
+            self.match(oldParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)

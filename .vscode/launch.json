@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+        {
+            "name": "Debug ANTLR4 grammar",
+            "type": "antlr-debug",
+            "request": "launch",
+            "input": "src/test/testcases/100.txt",
+            "grammar": "src/main/mt22/parser/MT22.g4",
+            "actionFile": "grammars/exampleActions.js",
+            "startRule": "program",
+            "printParseTree": true,
+            "visualParseTree": true
+        }
+    ]
+}
