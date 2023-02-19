@@ -17,8 +17,8 @@ COMMENT_C : '/*' .*? '*/' -> skip ;
 COMMENT_CPP : '//' ~[\r\n]* -> skip ;
 
 // string
-fragment ESCAPE: '\\' ( 'b' | 'f' | 'n' | 'r' | 't' | '\'' | DB | '\\' );
-STR: (DB (ESCAPE|~[\r\n])* DB) {self.text = self.text[1:-1].replace('\\"', '"').replace("\\'", "'").replace('\\\\', '\\')};
+fragment ESCAPE: '\\' ( 'b' | 'f' | 'n' | 'r' | 't' | '\'' | DB | '\\'| '"' );
+STR: (DB (ESCAPE|~[\\"\r\n])*  DB) {self.text = self.text[1:-1]};
 
 // keyword
 AUTO: 'auto';
@@ -73,11 +73,12 @@ LB: '(';
 RB: ')';
 LCB: '{';
 RCB: '}';
+EQU:'=';
 
 // array
 fragment EXPR: STR|FLO|INT|ID;
+fragment EXPRESSTIONS: EXPR (' ')* COMA (' ')* EXPRESSTIONS | EXPR ;
 ARR: LCB EXPRESSTIONS RCB{self.text = self.text.replace(' ','')};
-EXPRESSTIONS: EXPR COMA (' ')* EXPRESSTIONS | EXPR ;
 
 // TOKENS
 DB: '"';
@@ -92,7 +93,7 @@ NOT: '!';
 // operator
 AND: '&&';
 OR: '||';
-EQU: '==';
+EQUL: '==';
 NEQ: '!=';
 LESS: '<';
 LOEQ: '<=';
@@ -102,6 +103,6 @@ SCOPE: '::';
 
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
-ERROR_CHAR: .;
-UNCLOSE_STRING: .;
+ERROR_CHAR: .{raise ErrorToken(self.text)};
+UNCLOSE_STRING: DB (ESCAPE|~["\r\n])* {raise UncloseString(self.text[1:])};
 ILLEGAL_ESCAPE: .;

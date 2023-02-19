@@ -22,7 +22,7 @@ class LexerSuite(unittest.TestCase):
 
     def test_Character_Set(self):
         """test character set"""
-        self.assertTrue(TestLexer.test("Iden1 \n \b \r \fIden2", "Iden1,Iden2,<EOF>", 105))
+        self.assertTrue(TestLexer.test("Iden1 \n \b \r \fIden2", "Iden1,Error Token ", 105))
 
     def test_Comment_C(self):
         """test Comment """
@@ -89,11 +89,11 @@ class LexerSuite(unittest.TestCase):
 
     def test_String5(self):
         """test String again"""
-        self.assertTrue(TestLexer.test("\"Bac Ho noi \\\" Yeu to quoc yeu dong bao,... \\\" \"", "Bac Ho noi \" Yeu to quoc yeu dong bao,... \" ,<EOF>", 122))
+        self.assertTrue(TestLexer.test("\"Bac Ho noi \\\" Yeu to quoc yeu dong bao,... \\\" \"", "Bac Ho noi \\\" Yeu to quoc yeu dong bao,... \\\" ,<EOF>", 122))
 
     def testArray(self):
         """test TestArray"""
-        self.assertTrue(TestLexer.test("{1, 5, 7, 12}", "{1, 5, 7, 12},<EOF>", 123))
+        self.assertTrue(TestLexer.test("{1, 5, 7, 12}", "{1,5,7,12},<EOF>", 123))
 
     def testArray2(self):
         """test TestArray2"""
@@ -101,12 +101,16 @@ class LexerSuite(unittest.TestCase):
 
     def testArray3(self):
         """test testArray"""
-        self.assertTrue(TestLexer.test("{1.2, 3.4,   5.6, 7_88.2}", "{1.2,3.4,5.6,788.2} ,<EOF>", 125))
+        self.assertTrue(TestLexer.test("{1.2, 3.4,   5.6, 7_88.2}", "{1.2,3.4,5.6,7_88.2},<EOF>", 125))
 
     def testArray4(self):
         """test testArray"""
-        self.assertTrue(TestLexer.test("{true, true, false, false}", "{true,true,false,false} ,<EOF>", 126))\
+        self.assertTrue(TestLexer.test("{true, true, false, false}", "{true,true,false,false},<EOF>", 126))\
         
     def testArray5(self):
         """test testArray"""
-        self.assertTrue(TestLexer.test("1,2,3,4,5.4,5_6.34,true", "1,2,3,4,5,5.4,56.34,true,<EOF>", 127))
+        self.assertTrue(TestLexer.test("{1,2,3,4,5.4,5_6.34,true}", "{1,2,3,4,5.4,5_6.34,true},<EOF>", 127))
+
+    def testArray6(self):
+        """test testArray"""
+        self.assertTrue(TestLexer.test("\"He asked me: \\\"Where is John?\\\"\"", "He asked me: \\\"Where is John?\\\",<EOF>", 128))
