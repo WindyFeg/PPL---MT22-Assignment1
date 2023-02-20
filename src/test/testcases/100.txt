@@ -1,2 +1,6 @@
-{"Kangxi"    , "Yongzheng", "Qianlong"}
-{1,2,3,4,5.4,5_6.34,true,"test"}
+
+        main: function void() {
+            delta: integer = fact(3);
+            inc(x, delta);
+            printInteger(x);
+        }

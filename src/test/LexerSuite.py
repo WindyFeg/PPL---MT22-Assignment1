@@ -114,3 +114,7 @@ class LexerSuite(unittest.TestCase):
     def testArray6(self):
         """test testArray"""
         self.assertTrue(TestLexer.test("\"He asked me: \\\"Where is John?\\\"\"", "He asked me: \\\"Where is John?\\\",<EOF>", 128))
+    
+    def testArraytype(self):
+        """test Array type"""
+        self.assertTrue(TestLexer.test("array [2, 3] of integer", "array [2, 3] of integer,<EOF>", 129))
