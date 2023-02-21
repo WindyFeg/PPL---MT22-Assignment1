@@ -1,6 +1,7 @@
-
-        main: function void() {
-            delta: integer = fact(3);
-            inc(x, delta);
-            printInteger(x);
-        }
+	
+x: integer = 65;
+main: function void() {
+    delta: integer = fact(3);
+    inc(x, delta);
+    printInteger(x);
+}

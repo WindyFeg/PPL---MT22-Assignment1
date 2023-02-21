@@ -21,3 +21,21 @@ class ParserSuite(unittest.TestCase):
 anpha, beta, gama, delta: boolean;"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 203))
+
+    def last_submisstion_test(self):
+        """variable declaration  """
+        input = """x: integer = 65;
+        fact: function integer (n: integer) {
+            if (n == 0) return 1;
+            else return n * fact(n - 1);
+        }
+        inc: function void(out n: integer, delta: integer) {
+            n = n + delta;
+        }
+        main: function void() {
+            delta: integer = fact(3);
+            inc(x, delta);
+            printInteger(x);
+        }"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 204))

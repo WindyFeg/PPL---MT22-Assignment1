@@ -8,7 +8,7 @@ options{
 	language=Python3;
 }
 
-program: (expression|statement|functiondecl|mainfunction|variabledecl|arraytype|COMMENT_C|COMMENT_CPP|STR|FLO|DEMENTION|INT|ID|LCB|COMA|RCB|ARR|SEM)* EOF ;
+program: mt22language EOF;
 
 // ! --------------PARSER RULE--------------
 
@@ -17,6 +17,7 @@ arithmetricop: MINU | PLUS | MUTI | DIVI | MODU;
 booleanop: NOT | AND | OR;
 stringop: SCOPE;
 relationalop: EQUL | NEQ | LESS | GREA | LOEQ | GOEQ;
+demention: INT COMA demention | INT;
 
 // ?testing expression
 operator: arithmetricop| booleanop | stringop | relationalop | indexop;
@@ -33,9 +34,10 @@ expression: operand stringop operand
 		|operand
 		;
 
-// ?constant not clear in ass1
-constant: STR | BOOL | FLO | INT | ID;
-functioncall: ID LB arguementlist RB;
+// ?constant not clear in ass1 
+// ?Add ARR
+constant: STR | BOOL | FLO | INT | ID | ARR;
+functioncall: ID LB arguementlist? RB;
 
 indexop: ID expressionlist;
 
@@ -52,8 +54,7 @@ arguement: expression; //TODO arguement
 functionmainprot:MAIN COL FUNCTION VOID LB parameterlist? RB;
 functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist RB (INHERIT ID LSB RSB)?;
 // ?add-on not found in mt22
-functionmainbody: LCB statementlist? RCB;
-functionbody: LCB statementlist RCB;
+functionbody: blockstatement;
 
 // *Statement
 scalarvar: ID;
@@ -90,22 +91,26 @@ returnstatement: RETURN expression SEM;
 
 callstatement: functioncall SEM;
 
-blockstatement: LCB statementlist RCB;
+blockstatement: LCB (statementlist|variabledecl)*? RCB;
 
 // *--------List of ...--------
 idlist: ID  COMA idlist | ID;
-expressionlist: expression COMA expressionlist| expression;
+expressionlist: expression COMA expressionlist| expression SEM?;
 parameterlist: parameter COMA parameterlist| parameter;
 arguementlist: arguement COMA arguementlist | arguement;
-statementlist: statement SEM statementlist | statement SEM;
+statementlist: statement SEM statementlist | statement SEM?;
 // *--------Declare--------
 variabledecl: idlist COL vartype  (EQU expressionlist)? SEM;
 functiondecl: functionprot functionbody;
 // ?unique function, whose name is main without any parameter and return nothing (type void).
-mainfunction: functionmainprot functionmainbody;
+mainfunction: functionmainprot functionbody;
 // ?Is arrray type here?
-arraytype:ARRAY LSB DEMENTION RSB OF INTEGER;
+arraydecl:ARRAY LSB demention RSB OF vartype;
 
+// * MAIN PROGRAM
+mt22language: (variabledecl | arraydecl | expressionlist
+				| functiondecl )* | mainfunction;
+// mt22language: blockstatement;
 // !--------------LEXER RULE----------------
 
 // * --------Comment--------
@@ -140,9 +145,9 @@ ARRAY: 'array';
 MAIN:'main';
 
 // *--------Boolean--------
+BOOL: FALSE | TRUE;
 FALSE: 'false';
 TRUE: 'true';
-BOOL: (FALSE | TRUE);
 
 // *--------Float--------
 fragment DECIMAL:  DIGIT+;
@@ -153,13 +158,17 @@ FLO:  ((POSINT | ZERO)+ DOT DECIMAL EXPONENT?
 // *--------Integer--------
 fragment POSINT: [1-9] (UNDE DIGIT | DIGIT)*;
 INT: (POSINT | ZERO){self.text = self.text.replace('_','')} ;
-DEMENTION: INT COMA DEMENTION | INT;
 
 // *--------Identifier--------
 fragment DIGIT: [0-9];
 fragment LETTER: ([a-z] | [A-Z]);
 ID: (LETTER | UNDE) (LETTER | UNDE | DIGIT)*;
 
+
+// *--------Array--------
+fragment ARRTYPE: STR|FLO|INT|BOOL;
+fragment ARRTYPES: ARRTYPE (' ')* COMA (' ')* ARRTYPES | ARRTYPE ;
+ARR: LCB ARRTYPES  RCB{self.text = self.text.replace(' ','')};
 
 //*--------Seprator--------
 COMA: ',';
@@ -173,12 +182,6 @@ RB: ')';
 LCB: '{';
 RCB: '}';
 EQU:'=';
-
-// *--------Array--------
-fragment EXPR: STR|FLO|INT|ID;
-fragment EXPRESSTIONS: EXPR COMA EXPRESSTIONS | EXPR ;
-ARR: LCB EXPRESSTIONS RCB{self.text = self.text.replace(' ','')};
-
 
 // *--------Tokens--------
 DB: '"';
