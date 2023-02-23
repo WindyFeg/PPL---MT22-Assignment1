@@ -1,2 +1,0 @@
-delta: integer;
-anpha, beta, gama, delta: boolean;

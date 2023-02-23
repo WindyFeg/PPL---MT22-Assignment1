@@ -18,11 +18,29 @@ class ParserSuite(unittest.TestCase):
     def test_vardecl(self):
         """variable declaration  """
         input = """delta: integer;
-anpha, beta, gama, delta: boolean;"""
+                    anpha, beta, gama, delta: boolean;"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 203))
 
-    def last_submisstion_test(self):
+    def test_vardecl2(self):
+        """variable declaration  """
+        input = """x: integer = 65;"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 204))
+
+    def test_vardecl3(self):
+        """variable declaration  """
+        input = """a, b, c, d: integer = 3, 4, 6;"""
+        expect = "Error on line 1 col 29: ;"
+        self.assertTrue(TestParser.test(input, expect, 205))
+
+    def test_vardecl4(self):
+        """variable declaration  """
+        input = """a, b, c, d: integer = 3, 4, 6, 5;"""
+        expect = "successful"
+        self.assertTrue(TestParser.test(input, expect, 206))
+
+    def test_last_submisstion(self):
         """variable declaration  """
         input = """x: integer = 65;
         fact: function integer (n: integer) {
@@ -38,4 +56,7 @@ anpha, beta, gama, delta: boolean;"""
             printInteger(x);
         }"""
         expect = "successful"
-        self.assertTrue(TestParser.test(input, expect, 204))
+        self.assertTrue(TestParser.test(input, expect, 207))
+
+
+   

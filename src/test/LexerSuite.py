@@ -93,19 +93,19 @@ class LexerSuite(unittest.TestCase):
 
     def testArray(self):
         """test TestArray"""
-        self.assertTrue(TestLexer.test("{1, 5, 7, 12}", "{1,5,7,12},<EOF>", 123))
+        self.assertTrue(TestLexer.test("{1, 5, 7, 12}", "{1, 5, 7, 12},<EOF>", 123))
 
     def testArray2(self):
         """test TestArray2"""
-        self.assertTrue(TestLexer.test("{\"Kangxi\"    , \"Yongzheng\", \"Qianlong\"}", "{\"Kangxi\",\"Yongzheng\",\"Qianlong\"},<EOF>", 124))
+        self.assertTrue(TestLexer.test("{\"Kangxi\"    , \"Yongzheng\", \"Qianlong\"}", "{\"Kangxi\"    , \"Yongzheng\", \"Qianlong\"},<EOF>", 124))
 
     def testArray3(self):
         """test testArray"""
-        self.assertTrue(TestLexer.test("{1.2, 3.4,   5.6, 7_88.2}", "{1.2,3.4,5.6,7_88.2},<EOF>", 125))
+        self.assertTrue(TestLexer.test("{1.2, 3.4,   5.6, 7_88.2}", "{1.2, 3.4,   5.6, 7_88.2},<EOF>", 125))
 
     def testArray4(self):
         """test testArray"""
-        self.assertTrue(TestLexer.test("{true, true, false, false}", "{true,true,false,false},<EOF>", 126))\
+        self.assertTrue(TestLexer.test("{true, true, false, false}", "{true, true, false, false},<EOF>", 126))\
         
     def testArray5(self):
         """test testArray"""
@@ -114,4 +114,275 @@ class LexerSuite(unittest.TestCase):
     def testArray6(self):
         """test testArray"""
         self.assertTrue(TestLexer.test("\"He asked me: \\\"Where is John?\\\"\"", "He asked me: \\\"Where is John?\\\",<EOF>", 128))
+
+    def testunclosestring(self):
+        """test testArray"""
+        self.assertTrue(TestLexer.test(""""He"llooooo" """, """He,llooooo,Unclosed String:  """, 129))
+
+    def test_int_lit(self):
+        """ Test Integer Literal """
+        self.assertTrue(TestLexer.test(
+            r"""
+0 1 2 3 4 123 123456789
+""",
+
+            "0,1,2,3,4,123,123456789,<EOF>",
+            130
+        ))
+    
+    def test_real_lit(self):
+        """ Test Real Literal """
+        self.assertTrue(TestLexer.test(
+            r"""
+1.2 1e2 1.2E-2 1.2e-2 .1E2 9.0 12e8 0.33E-3 128e-42
+     12.05 1e-5      1.5e-6  0.0005e3   2e21
+""",
+
+            "1.2,1e2,1.2E-2,1.2e-2,.1E2,9.0,12e8,0.33E-3,128e-42,12.05,1e-5,1.5e-6,0.0005e3,2e21,<EOF>",
+            131
+        ))
+
+    def test_escape_singlequote(self):
+        """ Test Escape """
+        self.assertTrue(TestLexer.test(
+            r"""
+" abc \' xyz "
+""",
+
+            r" abc \' xyz ,<EOF>",
+            132
+        ))
+    
+    def test_34_illegal(self):
+        """ Test Error String """
+        self.assertTrue(TestLexer.test(
+            r"""
+"abc" 123 __123 "abc xyz"
+" abc\m "
+""",
+
+            "abc,123,__123,abc xyz,Illegal Escape In String:  abc\m",
+            133
+        ))
+
+    def test_err_tok(self):
+        """ Test Error Token """
+        self.assertTrue(TestLexer.test(
+            r"""
+!== != & ^ % $ # ... \
+""",
+
+            "!=,=,!=,Error Token &",
+            134
+        ))
+
+    def test_err_tok2(self):
+        """ Test Error Token """
+        self.assertTrue(TestLexer.test(
+            r"""
+if a != b then
+""",
+
+            "if,a,!=,b,then,<EOF>",
+            135
+        ))
+
+    def test_err_tok3(self):
+        """ Test Error Token """
+        self.assertTrue(TestLexer.test(
+            r"""
+xyz
+$a = 5
+""",
+
+            "xyz,Error Token $",
+            136
+        ))
+    
+    def test_num_leading(self):
+        """ Test Number leading 0 """
+        self.assertTrue(TestLexer.test(
+            r"""
+1234 0000001234 0000043123
+""",
+            "1234,0,0,0,0,0,0,1234,0,0,0,0,0,43123,<EOF>",
+            137
+        ))
+        
+
+    def test_38_num_leading1(self):
+        """ Test Real Leading 0 """
+        self.assertTrue(TestLexer.test(
+            r"""
+00001.1111000000
+0e-4
+000000001e-40000
+""",
+            "00001.1111000000,0e-4,000000001e-40000,<EOF>",
+            138
+        ))
+
+    def testillegalescape(self):
+        """ Test Error String """
+        self.assertTrue(TestLexer.test(
+            r"""
+"abc - xyz"
+"abc \ xyz"
+""",
+
+            "abc - xyz,Illegal Escape In String: abc \ ",
+            139
+        ))
+    
+    def testillegalescape2(self):
+        """ Test Error String """
+        self.assertTrue(TestLexer.test(
+            r"""
+"abc - xyz"
+"abc \yyz"
+""",
+
+            "abc - xyz,Illegal Escape In String: abc \y",
+            140
+        ))
+    
+    def test_escape_backsplash_spacing(self):
+        """ Test Escape """
+        self.assertTrue(TestLexer.test(
+            r"""
+"abc \\ xyz"
+""",
+
+            r"abc \\ xyz,<EOF>",
+            141
+        ))
+
+    def test_escape_backsplash_trim(self):
+        """ Test Escape """
+        self.assertTrue(TestLexer.test(
+            r"""
+"\\"
+""",
+
+            r'''\\,<EOF>''',
+            142
+        ))
+    
+    def test_escape_backsplash_tail_spacing(self):
+        """ Test Escape """
+        self.assertTrue(TestLexer.test(
+            r"""
+"\\ "
+""",
+
+            r"\\ ,<EOF>",
+            143
+        ))
+        
+
+    def test_unclose_use_escape(self):
+        """test testArray"""
+        self.assertTrue(TestLexer.test(r""""\"""", r"""Unclosed String: \"""", 144))
+
+    def test__unclose_eof(self):
+        """ Test Unclosed String """
+        self.assertTrue(TestLexer.test(
+            r"""
+s = "abc""",
+
+            r"s,=,Unclosed String: abc",
+            144
+        ))
+
+    def test_unclose_newline(self):
+        """ Test Unclosed """
+        self.assertTrue(TestLexer.test(
+            "s = \"abc;\na = \"xyz\""
+            ,"s,=,Unclosed String: abc;\n",145
+        ))
+
+    def test_complex(self):
+        """ Test Complex Function """
+        self.assertTrue(TestLexer.test(
+            r"""
+procedure foo();
+begin
+    while 1<2<3<4<5 do ok();
+end
+""",
+
+            r"procedure,foo,(,),;,begin,while,1,<,2,<,3,<,4,<,5,do,ok,(,),;,end,<EOF>",
+            146
+        ))
+    
+    def test_complex2(self):
+        """ Test Complex Function """
+        self.assertTrue(TestLexer.test(
+            r"""
+procedure foo();
+begin
+    with a: string do ok();
+end
+""",
+
+            r"procedure,foo,(,),;,begin,with,a,:,string,do,ok,(,),;,end,<EOF>",
+            147
+        ))
+
+    def test_complex2(self):
+        """ Test Complex Function """
+        self.assertTrue(TestLexer.test(
+            r"""
+procedure foo();
+begin
+    with a,b,c,d:string; f:integer do ok();
+end
+""",
+
+            r"procedure,foo,(,),;,begin,with,a,,,b,,,c,,,d,:,string,;,f,:,integer,do,ok,(,),;,end,<EOF>",
+            148
+        ))
+
+    def test_complex3(self):
+        """ Test Complex Function """
+        self.assertTrue(TestLexer.test(
+            r"""
+procedure foo();
+var a: real;
+begin
+    for i := 1 to 10 do begin
+        for j := i downto 1 do
+            if (i + j) mod 2 = 1 then continue break;
+    end
+end
+""",
+
+            r"procedure,foo,(,),;,var,a,:,real,;,begin,for,i,:,=,1,to,10,do,begin,for,j,:,=,i,downto,1,do,if,(,i,+,j,),mod,2,=,1,then,continue,break,;,end,end,<EOF>",
+            149
+        ))
+
+    def test_complex4(self):
+        """ Test Complex Function """
+        self.assertTrue(TestLexer.test(
+            r"""
+procedure foo();
+begin
+    a := a[d < y(5 > 3) + 3 * n(12)] := 5[3] := 3[2] := b;
+end
+""",
+
+            r"procedure,foo,(,),;,begin,a,:,=,a,[,d,<,y,(,5,>,3,),+,3,*,n,(,12,),],:,=,5,[,3,],:,=,3,[,2,],:,=,b,;,end,<EOF>",
+            150
+        ))
+
+    def test_bool(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("true"
+        , "true,<EOF>", 151))
+
+    def test_arr(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""{"he ee loo"  , true  , false}"""
+        , """{"he ee loo"  , true  , false},<EOF>""", 152))
+
     

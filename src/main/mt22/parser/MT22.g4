@@ -8,7 +8,7 @@ options{
 	language=Python3;
 }
 
-program: mt22language EOF;
+program: mt22language* EOF;
 
 // ! --------------PARSER RULE--------------
 
@@ -100,7 +100,9 @@ parameterlist: parameter COMA parameterlist| parameter;
 arguementlist: arguement COMA arguementlist | arguement;
 statementlist: statement SEM statementlist | statement SEM?;
 // *--------Declare--------
-variabledecl: idlist COL vartype  (EQU expressionlist)? SEM;
+variabledecl: variabledecls SEM;
+variabledecls: (ID COMA variabledecls COMA expression| ID COL vartype EQU expression| idlist COL vartype);
+// variabledecl: idlist COL vartype  (EQU expressionlist)? SEM?;
 functiondecl: functionprot functionbody;
 // ?unique function, whose name is main without any parameter and return nothing (type void).
 mainfunction: functionmainprot functionbody;
@@ -108,8 +110,7 @@ mainfunction: functionmainprot functionbody;
 arraydecl:ARRAY LSB demention RSB OF vartype;
 
 // * MAIN PROGRAM
-mt22language: (variabledecl | arraydecl | expressionlist
-				| functiondecl )* | mainfunction;
+mt22language: mainfunction| functiondecl |variabledecls SEM| arraydecl SEM | expressionlist ;
 // mt22language: blockstatement;
 // !--------------LEXER RULE----------------
 
@@ -119,7 +120,8 @@ COMMENT_CPP : '//' ~[\r\n]* -> skip ;
 
 // * --------String--------
 fragment ESCAPE: '\\' ( 'b' | 'f' | 'n' | 'r' | 't' | '\'' | DB | '\\'| '"' );
-STR: (DB (ESCAPE|~[\\"\r\n])*  DB) {self.text = self.text[1:-1]};
+fragment STR_CHAR: ESCAPE|~[\\'"\r\n\f\b\t];
+STR: (DB STR_CHAR*  DB) {self.text = self.text[1:-1]};
 STRTYP: SCOPE;
 
 // * --------Keyword--------
@@ -153,7 +155,8 @@ TRUE: 'true';
 fragment DECIMAL:  DIGIT+;
 fragment EXPONENT: ('e'|'E') ('+'|'-')? DIGIT+;
 FLO:  ((POSINT | ZERO)+ DOT DECIMAL EXPONENT?
-		| (POSINT | ZERO)+ EXPONENT (DOT  DECIMAL)?){self.text = self.text.replace('_','')};
+		| (POSINT | ZERO)+ DOT? EXPONENT
+		| DOT DECIMAL EXPONENT){self.text = self.text.replace('_','')};
 
 // *--------Integer--------
 fragment POSINT: [1-9] (UNDE DIGIT | DIGIT)*;
@@ -168,7 +171,7 @@ ID: (LETTER | UNDE) (LETTER | UNDE | DIGIT)*;
 // *--------Array--------
 fragment ARRTYPE: STR|FLO|INT|BOOL;
 fragment ARRTYPES: ARRTYPE (' ')* COMA (' ')* ARRTYPES | ARRTYPE ;
-ARR: LCB ARRTYPES  RCB{self.text = self.text.replace(' ','')};
+ARR: LCB ARRTYPES  RCB;
 
 //*--------Seprator--------
 COMA: ',';
@@ -204,8 +207,12 @@ GREA: '>';
 GOEQ: '>=';
 SCOPE: '::';
 
+
 WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 
 ERROR_CHAR: .{raise ErrorToken(self.text)};
-UNCLOSE_STRING: DB (ESCAPE|~["\r\n])* {raise UncloseString(self.text[1:])};
-ILLEGAL_ESCAPE: .;
+
+fragment ESCAPE_ILLEGAL: '\\' ~[btnfr"'\\] | ~'\\' ;
+UNCLOSE_STRING: DB STR_CHAR* ( [\b\t\n\f\r"'\\] | EOF ) {raise UncloseString(self.text[1:])};
+
+ILLEGAL_ESCAPE: DB STR_CHAR* ESCAPE_ILLEGAL{raise IllegalEscape(self.text[1:])};
