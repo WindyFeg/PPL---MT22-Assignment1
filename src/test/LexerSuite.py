@@ -16,9 +16,9 @@ class LexerSuite(unittest.TestCase):
         """test identifiers"""
         self.assertTrue(TestLexer.test("_test12", "_test12,<EOF>", 103))
 
-    # def test_ErrorNumber_identifier(self):
-    #     """test identifiers"""
-    #     self.assertTrue(TestLexer.test("12_test", "12_test,<EOF>", 104))
+    def test_ErrorNumber_identifier(self):
+        """test identifiers"""
+        self.assertTrue(TestLexer.test("12_test", "12,_test,<EOF>", 104))
 
     def test_Character_Set(self):
         """test character set"""
@@ -315,7 +315,7 @@ end
             146
         ))
     
-    def test_complex2(self):
+    def test_complex1(self):
         """ Test Complex Function """
         self.assertTrue(TestLexer.test(
             r"""
@@ -375,7 +375,7 @@ end
             150
         ))
 
-    def test_bool(self):
+    def test_bool1(self):
         """test String again"""
         self.assertTrue(TestLexer.test("true"
         , "true,<EOF>", 151))
@@ -385,4 +385,455 @@ end
         self.assertTrue(TestLexer.test("""{"he ee loo"  , true  , false}"""
         , """{"he ee loo"  , true  , false},<EOF>""", 152))
 
+    # create test for escape \t\t\t\t\t\t\t\t
+    def test_escape_tab(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "\\t"
+        """
+        , """\\t,<EOF>""", 153))
+
+    def test_escape_tab2(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "\t"
+        """
+        , """\t,<EOF>""", 154))
+
+    def test_escape_tab3(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "abc \t xyz"
+        """
+        , """abc \t xyz,<EOF>""", 155))
+
+    def test_n_tab(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+"abc\nxyz"
+"""
+        , """Unclosed String: abc\n""", 156))
+
+    def test_escape_tab4(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "abc\rxyz"
+        """
+        , """Unclosed String: abc\n""", 157))
+
+    def test_escape_tab5(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "abc \b xyz"
+        """
+        , """abc \b xyz,<EOF>""", 158))
+
+    def test_escape_tab6(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "abc \f xyz"
+        """
+        , """abc \f xyz,<EOF>""", 159))
     
+    def test_escape_tab7(self):
+        """test String again"""
+        self.assertTrue(TestLexer.test("""
+        "abc \\' xyz"
+        """
+        , """abc \\' xyz,<EOF>""", 160))
+
+    def test_err_tok1(self):
+        """ Test Error Token """
+        self.assertTrue(TestLexer.test(
+            r"""
+\.\x\\
+""",
+
+            """Error Token \\""",
+            161
+        ))
+
+    def test_auto_gen(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// [,<>,( k6301 with begin,],true
++ - integer N0699 + > then L09e7 >= real > >= , ] <> * eb142 > integer / while boolean procedure false
+/* false procedure Z2262,do,G9a7c end e46e2,+,break*/
+""",
+
+            r"+,-,integer,N0699,+,>,then,L09e7,>=,real,>,>=,,,],<,>,*,eb142,>,integer,/,while,boolean,procedure,false,<EOF>",
+            162
+        ))
+
+    def test_auto_gen1(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// :=,+,> Wcb78 ; false,else,>=
+and real ] p5c22 ) array break w1ca2 array mod while , var div to + D989c := - function downto <= + ,
+/* for false hb039,string,N6d32 not ua0fa,while,var*/
+""",
+
+            r"and,real,],p5c22,),array,break,w1ca2,array,mod,while,,,var,div,to,+,D989c,:,=,-,function,downto,<=,+,,,<EOF>",
+            163
+        ))
+
+
+    def test_auto_gen2(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// (,true,[ acb40 mod for,),with
+= boolean .. p104c ] function do z71ae of < begin if break with of procedure b4169 break - of = = function div
+/* <= : a41aa,while,m8bcd .. E8869,,,string*/
+""",
+
+            r"=,boolean,.,.,p104c,],function,do,z71ae,of,<,begin,if,break,with,of,procedure,b4169,break,-,of,=,=,function,div,<EOF>",
+            164
+        ))
+
+
+    def test_auto_gen3(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// or,(,procedure d7bab true and,,,>=
+do >= div nae0b ) else := W12e2 ( for / > if false <= <= pdb8e := + := <> .. to /
+/* div > b8286,function,u0f83 .. Iaffa,,,**/
+""",
+
+            r"do,>=,div,nae0b,),else,:,=,W12e2,(,for,/,>,if,false,<=,<=,pdb8e,:,=,+,:,=,<,>,.,.,to,/,<EOF>",
+            165
+        ))
+
+
+    def test_auto_gen4(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// string,array,break Vbb79 break <>,(,<>
+: .. do n1afd then - of Be562 ] end * > .. string * + W0977 var function else or mod if not
+/* boolean real M89a9,do,yc501 , x38af,(,/*/
+""",
+
+            r":,.,.,do,n1afd,then,-,of,Be562,],end,*,>,.,.,string,*,+,W0977,var,function,else,or,mod,if,not,<EOF>",
+            166
+        ))
+
+
+    def test_auto_gen5(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// /,<=,>= af9f4 , ,,and,mod
+- [ string O902e boolean , and y680b string + > , else <> else = a5cbe := return end var boolean [ +
+/* <= string Z1f1f,return,s847c with Xa8a2,continue,integer*/
+""",
+
+            r"-,[,string,O902e,boolean,,,and,y680b,string,+,>,,,else,<,>,else,=,a5cbe,:,=,return,end,var,boolean,[,+,<EOF>",
+            167
+        ))
+
+
+    def test_auto_gen6(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// and,:=,false C34d9 = else,<,..
+do var [ oa6ec - - .. vc463 var <= , var end ) - [ nedb5 var * - <= * * then
+/* / >= Q0dab,mod,qc5bc [ l4ebc,or,string*/
+""",
+
+            r"do,var,[,oa6ec,-,-,.,.,vc463,var,<=,,,var,end,),-,[,nedb5,var,*,-,<=,*,*,then,<EOF>",
+            168
+        ))
+
+
+    def test_auto_gen7(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// ),-,return Rb4ac true >=,,,not
+procedure , with Wd12f boolean >= [ b308a array ) ) or * for , >= n5d7e , , or <= , + <
+/* := to Dd5f9,<>,l8df4 - ha663,>=,[/*
+""",
+
+            r"procedure,,,with,Wd12f,boolean,>=,[,b308a,array,),),or,*,for,,,>=,n5d7e,,,,,or,<=,,,+,<,/,*,:,=,to,Dd5f9,,,<,>,,,l8df4,-,ha663,,,>=,,,[,/,*,<EOF>",
+            169
+        ))
+
+
+    def test_auto_gen8(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// >=,<=,for of8ae * :=,then,>=
+- + false P4366 ; * , l84bc , > : array procedure [ / while Va93a boolean and integer function - , false
+/* function , Wbffd,),y6349 else w7e53,(,)*/
+""",
+
+            r"-,+,false,P4366,;,*,,,l84bc,,,>,:,array,procedure,[,/,while,Va93a,boolean,and,integer,function,-,,,false,<EOF>",
+            170
+        ))
+
+    def test_auto_gen9(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r""" // [,<>,( k6301 with begin,],true """,
+            r"<EOF>",171))
+        
+    def test_dot(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r""" 12..3 . ..""",
+            r"12,.,.,3,.,.,.,<EOF>",172))
+        
+    def test_stringassign(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""thisisid :: "this is string" """,
+            r"thisisid,::,this is string,<EOF>",173))
+
+    def test_float(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""12.3.4""",
+            r"12.3,.,4,<EOF>",174))
+        
+    def test_float2(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""12.3e4""",
+            r"12.3e4,<EOF>",175))
+        
+    def test_float3(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""12.3e-4""",
+            r"12.3e-4,<EOF>",176))
+        
+    def test_float4(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r""".3e+4""",
+            r".3e+4,<EOF>",177))
+        
+    def test_float5(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""12.3e4e.5e-6""",
+            r"12.3e4,e,.5e-6,<EOF>",178))
+    
+    def test_comment(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""//comment//asd//sad//asdasd""",
+            r"<EOF>",179))
+    
+    def test_comment1(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""/* /*asdassfadsg */""",
+            r"<EOF>",180))
+    
+    def test_comment2(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""/* /*asdassfadsg */""",
+            r"<EOF>",181))
+        
+    def test_greedy(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""/* asdassfadsg */ akjlosdnolasd
+            aosldkjnaskdm
+            */""",
+            r"akjlosdnolasd,aosldkjnaskdm,*,/,<EOF>",182))
+    
+    def test_greedy2(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""a = b + c * d;""",
+            r"a,=,b,+,c,*,d,;,<EOF>",183))
+        
+    def test_greedy3(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""FuNctiOn prOceDure
+Begin END
+True FalSE
+IF thEn ELSE
+fOR While with DO To downTo
+RETURN break COntiNue
+integer string REAL BOOLean
+ARRAY
+VAR Of
+anD Then
+or eLse
+AND             THeN   OR   elSE
+dIV mOd NOT and OR""",
+            r"FuNctiOn,prOceDure,Begin,END,True,FalSE,IF,thEn,ELSE,fOR,While,with,DO,To,downTo,RETURN,break,COntiNue,integer,string,REAL,BOOLean,ARRAY,VAR,Of,anD,Then,or,eLse,AND,THeN,OR,elSE,dIV,mOd,NOT,and,OR,<EOF>",184))
+    
+    def test_string(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+""      "A"     
+"Mulitiple Characters"
+""",
+
+            ',A,Mulitiple Characters,<EOF>',
+            185))
+        
+    # witre 4 test case with array array [<dimensions>] of <element_type>.
+
+    def test_array(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""array[2] of integer""",
+            r"array,[,2,],of,integer,<EOF>",186))
+        
+    def test_array1(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""array[2][3] of integer""",
+            r"array,[,2,],[,3,],of,integer,<EOF>",187))
+    
+    def test_array2(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""array [2,4] of integer""",
+            r"array,[,2,,,4,],of,integer,<EOF>",188))
+        
+    def test_array3(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""array [2,4] of boolean""",
+            r"array,[,2,,,4,],of,boolean,<EOF>",189))
+
+    def test_auto_gen10(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// (,while,: H050f end return,+,[
+/*, / or M3ff3 while / for y848d while downto - + , ] ) >= Hdcb8 false / for > not and (
+ ( [ bc9ca,],B1ebd ; w28cd,procedure,if*/
+""",
+            r"<EOF>",
+            190
+        ))
+
+
+    def test_auto_gen11(self):
+        """ Test Automatically Generated Code """
+        self.assertTrue(TestLexer.test(
+            r"""
+// var,+,, M6af4 , with,=,-
+to >= ( Q51ca : ] to Ie94f for , integer ; , for return if Bbfd7 + real <> if do downto :
+/* * ) e4686,end,rf588 > R8121,-,,*/
+""",
+            r"to,>=,(,Q51ca,:,],to,Ie94f,for,,,integer,;,,,for,return,if,Bbfd7,+,real,<,>,if,do,downto,:,<EOF>",
+            191
+        ))
+
+
+    def test_illegal_char_in_string1(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \\ xyz "
+""",
+            "Illegal Escape In String:  abc \ ",
+            192
+        ))
+
+
+    def test_illegal_char_in_string2(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc "  xyz "
+""",
+            " abc ,xyz,Unclosed String: \n",
+            193
+        ))
+
+
+    def test_illegal_char_in_string3(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \r  xyz "
+""",
+            "Unclosed String:  abc \n",
+            194
+        ))
+
+
+    def test_illegal_char_in_string4(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \f  xyz "
+""",
+            " abc   xyz ,<EOF>",
+            195
+        ))
+
+
+    def test_illegal_char_in_string5(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \n  xyz "
+""",
+            "Unclosed String:  abc \n",
+            196
+        ))
+
+
+    def test_illegal_char_in_string6(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \t  xyz "
+""",
+            " abc 	  xyz ,<EOF>",
+            197
+        ))
+
+
+    def test_illegal_char_in_string7(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \b  xyz "
+""",
+            " abc   xyz ,<EOF>",
+            198
+        ))
+
+
+    def test_illegal_char_in_string8(self):
+        """ Test Illegal Character in String """
+        self.assertTrue(TestLexer.test(
+            """
+    " abc \b  xyz "
+""",
+            " abc   xyz ,<EOF>",
+            199
+        ))
+
+
+#     def test_100_uncomplete_comment(self):
+#         """ Test Uncomplete Comment """
+#         self.assertTrue(TestLexer.test(
+#             r"""
+# /*=====================
+# Comment here
+# ====================={{{{{{}}}}}}}}}}}
+# """,
+#             r"/,*,==,==,==,==,==,==,==,==,==,==,=,Comment,here,==,==,==,==,==,==,==,==,==,==,=,{,{,{,{,{,{,},},},},},},},},},},},<EOF>",
+#             200
+#         ))

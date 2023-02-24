@@ -120,7 +120,7 @@ COMMENT_CPP : '//' ~[\r\n]* -> skip ;
 
 // * --------String--------
 fragment ESCAPE: '\\' ( 'b' | 'f' | 'n' | 'r' | 't' | '\'' | DB | '\\'| '"' );
-fragment STR_CHAR: ESCAPE|~[\\'"\r\n\f\b\t];
+fragment STR_CHAR: ESCAPE|~[\\'"\r\n];
 STR: (DB STR_CHAR*  DB) {self.text = self.text[1:-1]};
 STRTYP: SCOPE;
 

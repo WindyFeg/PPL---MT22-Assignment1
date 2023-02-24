@@ -1,1 +1,1 @@
-procedure,foo,(,),;,begin,with,a,:,string,do,ok,(,),;,end,<EOF>
+abc 	 xyz,<EOF>

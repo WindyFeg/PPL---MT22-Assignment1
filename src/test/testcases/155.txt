@@ -1,5 +1,3 @@
 
-procedure foo();
-begin
-    with a: string do ok();
-end
+        "abc 	 xyz"
+        

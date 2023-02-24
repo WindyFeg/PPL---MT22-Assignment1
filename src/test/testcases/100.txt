@@ -1,1 +1,1 @@
-{"he ee loo"  , true  , false}
+array [2,4] of integer;
