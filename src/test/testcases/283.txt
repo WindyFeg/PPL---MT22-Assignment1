@@ -1,0 +1,12 @@
+
+        main: function void() {
+            test: array [5] of float;
+            test[1] = 0;
+            test[2] = 1_23.0;
+            test[3] = 2.23e3;
+            test[4] = 332_23e23;
+            test[5] = 4.5;
+
+            sortitem(test);
+        }
+        

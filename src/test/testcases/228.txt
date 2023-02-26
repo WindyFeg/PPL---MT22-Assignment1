@@ -1,0 +1,4 @@
+main:function void(){
+        i: integer;
+            a = a[1,2,i];
+        }

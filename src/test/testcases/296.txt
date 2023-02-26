@@ -1,0 +1,5 @@
+func14_2132: function array(inherit out asdd: float)
+                    {
+                        vassse_weAs: array [1,1,0,0] of string = {{{{}}};
+                    }
+                

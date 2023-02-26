@@ -1,0 +1,5 @@
+
+        if(a>b) if(a>b) a= b + dunf();
+        else a = dunf() ;
+        else if (a<b) a = dunf() ;
+        

@@ -1,0 +1,11 @@
+
+
+        functio2time: function void(str: string) {}
+
+        main: function void() {
+            a: string = "hello world!";
+            b: string = "phong";
+            c: string = a :: c;
+
+        }
+        

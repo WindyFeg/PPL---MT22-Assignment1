@@ -1,0 +1,8 @@
+SAD_JJasJJ: function void(inherit out a: auto) inherit sdads_ABC {
+                    for (a = arr[2] + true, true, arr[0,0,1] :: "\"hello\"")
+                    {
+                        return prevendtDefault() :: (100_00 :: "HEHI");
+                        break;
+                    }
+                }
+                

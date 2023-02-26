@@ -1,0 +1,28 @@
+
+        sortitem: function void(arr: array [5] of float) 
+        {
+            for (i = 0, i < 5, i + 1) {
+                for (j = i + 1, j < 5, j + 1) {
+                    if (arr[i] > arr[j]) {
+                        temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+
+            result: array [5] of float = {0, 1_23.0, 2.23e3, 332_23e23, 4.5}; 
+            return result;
+        }
+
+        main: function void() {
+            test: array [5] of float;
+            test[1] = 0;
+            test[2] = 1_23.0;
+            test[3] = 2.23e3;
+            test[4] = 332_23e23;
+            test[5] = 4.5;
+
+            sortitem(test);
+        }
+        

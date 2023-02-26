@@ -1,0 +1,7 @@
+SAD_JJJJ: function void(inherit out a: auto) inherit sdads_ABC {
+                    for (a = arr[2] + true, 1_0021 + 120.0e-10, arr[0,0,1] :: "\"hello\"")
+                    {
+                        return preventDefault() :: 100_00 :: "HEHI";
+                    }
+                }
+                

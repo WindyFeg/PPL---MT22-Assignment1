@@ -1,0 +1,2 @@
+ func1: function void() inherit a{}
+                    func2: function string(inherit out a: integer, inherit out b: float){}

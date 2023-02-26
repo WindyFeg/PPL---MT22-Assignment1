@@ -8,11 +8,12 @@ options{
 	language=Python3;
 }
 
-program: mt22language* EOF;
+// main function is unique => mean appear only once or none
+program: decl* mainfunction? decl* EOF;
 
 // ! --------------PARSER RULE--------------
 
-vartype: STRING | BOOLEAN | FLOAT | INTEGER;
+vartype: AUTO| STRING | BOOLEAN | FLOAT | INTEGER | arraytype ;
 arithmetricop: MINU | PLUS | MUTI | DIVI | MODU;
 booleanop: NOT | AND | OR;
 stringop: SCOPE;
@@ -22,24 +23,37 @@ demention: INT COMA demention | INT;
 // ?testing expression
 operator: arithmetricop| booleanop | stringop | relationalop | indexop;
 // *Two operation type
-operand: constant | vartype | operator | functioncall;
+// *Two expression (condition expression & typical expression)
+operand: constant | ID | operator | functioncall | subexpression ;
+condeoperand:constant | ID | operator | functioncall | subcondexpression;
+
+
+subcondexpression: LB condexpression RB ;
+condexpression: condeoperand relationalop condeoperand
+		|condexpression (AND|OR) condeoperand
+		|NOT condeoperand
+		|condeoperand
+		;
+
+
+subexpression:LB expression RB ;
 expression: operand stringop operand
 		|operand relationalop operand
 		|expression (AND|OR) operand
 		|expression (PLUS|MINU) operand 
 		|expression (MUTI|DIVI|MODU) operand
 		|NOT operand
-		|MINU operand
-		|indexop operand
+		|MINU operand 
+		|indexexpression
 		|operand
 		;
 
 // ?constant not clear in ass1 
 // ?Add ARR
-constant: STR | BOOL | FLO | INT | ID | ARR;
+constant: STR | BOOL | FLO | INT | ARR;
 functioncall: ID LB arguementlist? RB;
 
-indexop: ID expressionlist;
+indexop: ID indexexpression;
 
 // ?testing expression
 
@@ -47,18 +61,19 @@ indexop: ID expressionlist;
 // *--------part of things--------
 parameter: INHERIT? OUT? ID COL vartype;
 
-indexexpression:;
+// indexop[]
+indexexpression:LSB expressionlist RSB;
 
 //? arguement add-on
 arguement: expression; //TODO arguement
 functionmainprot:MAIN COL FUNCTION VOID LB parameterlist? RB;
-functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist RB (INHERIT ID LSB RSB)?;
+functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 // ?add-on not found in mt22
 functionbody: blockstatement;
 
 // *Statement
 scalarvar: ID;
-lhs: scalarvar | indexexpression;
+lhs: scalarvar | indexop;
 
 statement: assignstatement 
 | ifstatement 
@@ -72,18 +87,24 @@ statement: assignstatement
 | blockstatement
 ;
 
-assignstatement: lhs EQU expression;
+assignstatement: lhs EQU expression SEM;
 
 ifstatement: IF LB expression RB statement (ELSE statement)? ;
 // ?I put expression for init-express and condition-express
 // ? statement should be statement list
-forstatement: FOR LB scalarvar EQU expression COMA expression COMA expression RB LCB statement RCB SEM;
 
-whilestatement:WHILE LB expression RB LCB statement RCB SEM;
 
-dowhilestatement: DO blockstatement WHILE LB expression RB SEM;
+forhead:FOR LB scalarvar EQU expression COMA condexpression COMA expression RB;
+// modified
+forstatement: forhead blockstatement;
+
+whilecondition:WHILE LB condexpression RB;
+whilestatement:whilecondition statement;
+
+dowhilestatement: DO blockstatement whilecondition SEM;
 
 breakstatement: BREAK SEM;
+
 
 continuestatement: CONTINUE SEM;
 
@@ -101,17 +122,19 @@ arguementlist: arguement COMA arguementlist | arguement;
 statementlist: statement SEM statementlist | statement SEM?;
 // *--------Declare--------
 variabledecl: variabledecls SEM;
-variabledecls: (ID COMA variabledecls COMA expression| ID COL vartype EQU expression| idlist COL vartype);
-// variabledecl: idlist COL vartype  (EQU expressionlist)? SEM?;
+variabledecls: (ID COMA variabledecls COMA expression
+| ID COL vartype EQU expression
+| idlist COL vartype);
 functiondecl: functionprot functionbody;
+
 // ?unique function, whose name is main without any parameter and return nothing (type void).
 mainfunction: functionmainprot functionbody;
 // ?Is arrray type here?
-arraydecl:ARRAY LSB demention RSB OF vartype;
+arraytype:ARRAY (LSB demention RSB OF vartype)?;
 
 // * MAIN PROGRAM
-mt22language: mainfunction| functiondecl |variabledecls SEM| arraydecl SEM | expressionlist ;
-// mt22language: blockstatement;
+decl: functiondecl |variabledecls SEM | expressionlist | statementlist ;
+// decl:arraydecl;
 // !--------------LEXER RULE----------------
 
 // * --------Comment--------
@@ -122,7 +145,7 @@ COMMENT_CPP : '//' ~[\r\n]* -> skip ;
 fragment ESCAPE: '\\' ( 'b' | 'f' | 'n' | 'r' | 't' | '\'' | DB | '\\'| '"' );
 fragment STR_CHAR: ESCAPE|~[\\'"\r\n];
 STR: (DB STR_CHAR*  DB) {self.text = self.text[1:-1]};
-STRTYP: SCOPE;
+fragment STRTYP: SCOPE;
 
 // * --------Keyword--------
 AUTO: 'auto';
@@ -169,7 +192,7 @@ ID: (LETTER | UNDE) (LETTER | UNDE | DIGIT)*;
 
 
 // *--------Array--------
-fragment ARRTYPE: STR|FLO|INT|BOOL;
+fragment ARRTYPE: STR|FLO|INT|BOOL|ID;
 fragment ARRTYPES: ARRTYPE (' ')* COMA (' ')* ARRTYPES | ARRTYPE ;
 ARR: LCB ARRTYPES  RCB;
 

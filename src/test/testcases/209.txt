@@ -1,0 +1,2 @@
+aalo, balo: integer = 3, 4;
+        aalo: integer = 3;

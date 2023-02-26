@@ -1,0 +1,3 @@
+DSA_Ss123 : integer = 1_000_123 + 12 + arr[12.23];
+                SADasaJJ: function void(inherit out a: auto) inherit sdads_ABC {}
+                

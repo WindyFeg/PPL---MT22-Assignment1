@@ -1,0 +1,11 @@
+
+        do {
+                var = 2 + i;
+            {
+                var = 2 + i;
+            }
+            return 2;
+        }
+        while (i < 10)
+        var = 2 + i;
+        

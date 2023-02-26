@@ -1,0 +1,7 @@
+tenfuc: function integer(){
+        return 10 + 9 - 9 * 3;
+}
+main:function void(){
+        i: integer;
+            a = a[1,2,i,tenfuc];
+        }

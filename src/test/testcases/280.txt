@@ -1,0 +1,8 @@
+
+        while(i<2) do {
+        asda = 2;
+        break;
+        continue;
+        return adas();
+        } while (i < 10);
+        

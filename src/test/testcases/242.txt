@@ -1,0 +1,8 @@
+
+        bool : boolean = true == a;
+        bool : boolean = true != a;
+        bool : boolean = true > a;
+        bool : boolean = false < a;
+        bool : boolean = true >= a;
+        bool : boolean = true <= a;
+        

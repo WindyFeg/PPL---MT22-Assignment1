@@ -1,0 +1,4 @@
+
+        name____as: function integer(){}
+        name____ass: function integer() inherit name____as{}
+        

@@ -1,0 +1,9 @@
+func1: function string (inherit str1: string, out a: boolean)
+                    {
+                        if((a == 123) && (str1 != "hello") ) return func1("hello", a);
+                        else {
+                            if(a :: "b" == 3 || !(r + 2 * 3)){} 
+                            else readIndteger(a); 
+                        }
+                    }
+                

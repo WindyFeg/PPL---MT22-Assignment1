@@ -1,0 +1,14 @@
+func1: function auto(inherit out ASD_ad: float) inherit asd_as {
+                        if (asdas == ADsa) {
+                            for (i = 1, true + false + true, true) {
+                                asdas = a + 1 + 100_00 + 123.123e-123;
+                                if (e == asdasd) break;
+                            }
+                        }
+                        else do {
+                            aasdas = SDA :: ASdsas + asdas - asdsw2 * qwe;
+                            return func2(assd);
+                            continue
+                        } while (A > (B <= C));
+                    }
+                

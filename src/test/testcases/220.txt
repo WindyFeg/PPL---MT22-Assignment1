@@ -1,0 +1,6 @@
+
+number: function stringb(out n: integer) {
+return n;
+}
+main: function void() {        }
+        

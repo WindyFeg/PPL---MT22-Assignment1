@@ -1,0 +1,4 @@
+a = int % 2;
+        int = int / 2;
+        integer = integer + 1;
+        

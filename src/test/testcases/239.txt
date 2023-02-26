@@ -1,0 +1,4 @@
+
+        boll : boolean = true;
+        bool = false && bool; 
+        

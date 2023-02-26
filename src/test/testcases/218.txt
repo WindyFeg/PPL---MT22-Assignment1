@@ -1,0 +1,5 @@
+
+        one: function integer() {
+            return 1;
+                }
+        

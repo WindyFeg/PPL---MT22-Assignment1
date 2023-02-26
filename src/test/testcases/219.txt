@@ -1,0 +1,6 @@
+
+        number: function integer(out n: integer) {
+            return n;
+                }
+        main: function void() {        }
+        

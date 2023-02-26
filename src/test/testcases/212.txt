@@ -1,0 +1,2 @@
+str, boo: string = "helo", true;
+        str, boo: boolean = "helo", false;

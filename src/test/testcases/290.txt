@@ -1,0 +1,10 @@
+
+        main: function void() {
+            a: integer = 12;
+            b: float = 24.345e24;
+            result: integer = 0;
+
+            result = a + ((b * 2 - 4) + b / 2) / 2;
+            
+        }
+        

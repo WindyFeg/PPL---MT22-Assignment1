@@ -1,0 +1,6 @@
+
+        do {
+            writeInt(i);
+            break;
+        } while (true);
+        

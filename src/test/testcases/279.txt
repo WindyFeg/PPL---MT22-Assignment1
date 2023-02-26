@@ -1,0 +1,5 @@
+
+        while(i<2) do {
+        asda = 2;
+        } while (i < 10);
+        

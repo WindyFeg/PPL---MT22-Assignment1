@@ -1,0 +1,8 @@
+
+        as: boolean = false;
+        for (i = a, (!as) == true, i * b[2,5]) {
+            varii = writeInt(i);
+            if(a[i,as] == 0) break;
+            else continue;
+        }
+        
