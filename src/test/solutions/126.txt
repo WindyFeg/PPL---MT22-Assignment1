@@ -1,1 +1,1 @@
-{true, true, false, false},<EOF>
+{,true,,,true,,,false,,,false,},<EOF>
