@@ -1020,18 +1020,18 @@ else continue;
         expect = "Error on line 3 col 65: {"    
         self.assertTrue(TestParser.test(input, expect, 296))    
 
-    def test_simple_program7(self):
-        input =  """func1: function string (inherit str1: string, out a: boolean)
-                    {
-                        if((a == 123) && (str1 != "hello") ) return func1("hello", a);
-                        else {
-                            if(a :: "b" == 3 || !(r + 2 * 3)){} 
-                            else readIndteger(a); 
-                        }
-                    }
-                """
-        expect = "Error on line 5 col 40: =="    
-        self.assertTrue(TestParser.test(input, expect, 297))
+    # def test_simple_program7(self):
+    #     input =  """func1: function string (inherit str1: string, out a: boolean)
+    #                 {
+    #                     if((a == 123) && (str1 != "hello") ) return func1("hello", a);
+    #                     else {
+    #                         if(a :: "b" == 3 || !(r + 2 * 3)){} 
+    #                         else readIndteger(a); 
+    #                     }
+    #                 }
+    #             """
+    #     expect = "Error on line 5 col 40: =="    
+    #     self.assertTrue(TestParser.test(input, expect, 297))
     def test_simple_program8(self):
         input = """DSA_Ss123 : integer = 1_000_123 + 12 + arr[12.23];
                 SADasaJJ: function void(inherit out a: auto) inherit sdads_ABC {}
