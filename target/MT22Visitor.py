@@ -14,6 +14,11 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#arr.
+    def visitArr(self, ctx:MT22Parser.ArrContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#vartype.
     def visitVartype(self, ctx:MT22Parser.VartypeContext):
         return self.visitChildren(ctx)
@@ -69,6 +74,16 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#condexpression_logic.
+    def visitCondexpression_logic(self, ctx:MT22Parser.Condexpression_logicContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#condex_unary.
+    def visitCondex_unary(self, ctx:MT22Parser.Condex_unaryContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#subexpression.
     def visitSubexpression(self, ctx:MT22Parser.SubexpressionContext):
         return self.visitChildren(ctx)
@@ -89,8 +104,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#indexop.
-    def visitIndexop(self, ctx:MT22Parser.IndexopContext):
+    # Visit a parse tree produced by MT22Parser#indexexpression.
+    def visitIndexexpression(self, ctx:MT22Parser.IndexexpressionContext):
         return self.visitChildren(ctx)
 
 
@@ -99,8 +114,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#indexexpression.
-    def visitIndexexpression(self, ctx:MT22Parser.IndexexpressionContext):
+    # Visit a parse tree produced by MT22Parser#indexop.
+    def visitIndexop(self, ctx:MT22Parser.IndexopContext):
         return self.visitChildren(ctx)
 
 
