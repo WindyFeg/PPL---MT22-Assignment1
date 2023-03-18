@@ -1,5 +1,6 @@
+foo: function void() {
 
-        while(i<2) do {
-        asda = 2;
-        } while (i < 10);
-        
+            for (i = 0, i < x, i = i + 1) {
+                putInt(i);
+            }
+        }

@@ -1,4 +1,8 @@
-
-        while (i < 10) 
-    var = 2 + i;
-        
+foo: function integer(x: integer, y: integer) {
+            if (x > y) {
+                return x - y;
+            }
+            else {
+                return y - x;
+            }
+        }

@@ -9,47 +9,40 @@ options{
 }
 
 // main function is unique => mean appear only once or none
-program: decl* mainfunction? decl* EOF;
+program: decls EOF;
 // program: expression EOF;
 
 // ! --------------PARSER RULE--------------
 
 arr: LCB expressionlist? RCB;
 
-vartype: AUTO| STRING | BOOLEAN | FLOAT | INTEGER | VOID | arraytype ;
+vartype: atomictype | arraytype ;
+atomictype:AUTO| STRING | BOOLEAN | FLOAT | INTEGER ;
 arithmetricop: MINU | PLUS | MUTI | DIVI | MODU;
 booleanop: NOT | AND | OR;
 stringop: SCOPE;
 relationalop: EQUL | NEQ | LESS | GREA | LOEQ | GOEQ;
-demention: INT COMA demention | INT;
+dimension: INT COMA dimension | INT;
 
 // ?testing expression
 operator: arithmetricop| booleanop | stringop | relationalop | indexexpression;
 // *Two operation type
 // *Two expression (condition expression & typical expression)
-operand: constant | ID | operator | functioncall | subexpression ;
-condeoperand:constant | ID | operator | functioncall | subcondexpression;
-
-
-subcondexpression: LB condexpression RB ;
-condexpression: condexpression relationalop condexpression|condexpression_logic;
-condexpression_logic:condexpression_logic (AND|OR) condex_unary | condex_unary;
-condex_unary:NOT condeoperand
-		|condeoperand;		
-
+operand: constant | functioncall | ID |subexpression ;
 
 //* Expression
 subexpression:LB expression RB ;
-expression: expression stringop expression
-		|expression relationalop expression
-		|expression (AND|OR) operand
-		|expression (PLUS|MINU) operand 
-		|expression (MUTI|DIVI|MODU) operand
-		|NOT operand
-		|MINU operand 
-		|indexexpression
-		|operand
-		;
+
+expression: expression_relat stringop expression_relat | expression_relat;
+expression_relat: expression_logic relationalop expression_logic |expression_logic ;
+expression_logic: expression_logic (AND|OR) expression_bina1|expression_bina1;
+expression_bina1: expression_bina1 (PLUS|MINU) expression_bina2|expression_bina2;
+expression_bina2: expression_bina2 (MUTI|DIVI|MODU) expression_unary | expression_unary;
+expression_unary: NOT operand
+| MINU operand
+| indexexpression
+| operand
+;
 
 constant: STR | BOOL | FLO | INT | arr;
 functioncall: ID LB arguementlist? RB;
@@ -66,7 +59,7 @@ parameter: INHERIT? OUT? ID COL vartype;
 indexop:LSB expressionlist RSB;
 
 //? arguement add-on
-arguement: expression; //TODO arguement
+arguement: expression;
 functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
 functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 // ?add-on not found in mt22
@@ -95,11 +88,12 @@ ifstatement: IF LB expression RB statement (ELSE statement)? ;
 // ? statement should be statement list
 
 
-forhead:FOR LB scalarvar EQU expression COMA condexpression COMA expression RB;
+forhead:FOR LB lhs EQU expression COMA expression COMA expression RB;
 // modified
-forstatement: forhead blockstatement;
+forstatement: forhead statement;
 
-whilecondition:WHILE LB condexpression RB;
+whilecondition:WHILE LB expression RB;
+
 whilestatement:whilecondition statement;
 
 dowhilestatement: DO blockstatement whilecondition SEM;
@@ -111,7 +105,7 @@ continuestatement: CONTINUE SEM;
 
 returnstatement: RETURN expression SEM;
 
-callstatement: functioncall SEM;
+callstatement: ID LB arguementlist? RB SEM;
 
 blockstatement: LCB (statementlist|variabledecl)*? RCB;
 
@@ -122,19 +116,21 @@ parameterlist: parameter COMA parameterlist| parameter;
 arguementlist: arguement COMA arguementlist | arguement;
 statementlist: statement SEM statementlist | statement SEM?;
 // *--------Declare--------
-variabledecl: variabledecls SEM;
-variabledecls: (ID COMA variabledecls COMA expression
-| ID COL vartype EQU expression
-| idlist COL vartype);
+variabledecl: (variabledeclassign|variabledecls) SEM;
+variabledeclassign: ID COMA variabledeclassign COMA expression
+| ID COL vartype EQU expression;
+variabledecls:idlist COL vartype;
+
 functiondecl: functionprot functionbody;
 
 // ?unique function, whose name is main without any parameter and return nothing (type void).
 mainfunction: functionmainprot functionbody;
 // ?Is arrray type here?
-arraytype:ARRAY (LSB demention RSB OF vartype)?;
+arraytype:ARRAY (LSB dimension RSB OF atomictype)?;
 
 // * MAIN PROGRAM
-decl: functiondecl |variabledecls SEM | statementlist ;
+decls: decl decls | decl;
+decl: functiondecl |variabledecl | statementlist |mainfunction;
 // decl:arraydecl;
 // !--------------LEXER RULE----------------
 

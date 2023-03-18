@@ -1,8 +1,9 @@
 
-        while(i<2) do {
-        asda = 2;
-        break;
-        continue;
-        return adas();
-        } while (i < 10);
+             x: array [2] of integer ;
+            function main(): integer;
+            begin
+                writeln(x[0][1]);
+                writeln(x[1][2]);
+                return 0;
+            end
         

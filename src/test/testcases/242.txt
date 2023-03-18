@@ -1,8 +1,2 @@
-
-        bool : boolean = true == a;
-        bool : boolean = true != a;
-        bool : boolean = true > a;
-        bool : boolean = false < a;
-        bool : boolean = true >= a;
-        bool : boolean = true <= a;
-        
+main: function void() {
+            "I run out of idea";}

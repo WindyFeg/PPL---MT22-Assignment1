@@ -1,5 +1,1 @@
-
-        {
-            a : void;
-        }
-        
+add: function integer

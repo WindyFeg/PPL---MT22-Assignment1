@@ -1,7 +1,1 @@
-
-        for (i = a, 1 == 2, i * b[2,5]) {
-            varii = writeInt(i);
-            if(a[i] == 0) break;
-            else continue;
-        }
-        
+foo() { }

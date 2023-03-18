@@ -1,6 +1,3 @@
-
-        do {
-            writeInt(i);
-            break;
-        } while (true);
-        
+foo: function boolean(x: boolean) {
+            return !x;
+        }

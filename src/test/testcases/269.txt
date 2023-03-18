@@ -1,8 +1,5 @@
-
-        as: boolean = false;
-        for (i = a, (!as) == true, i * b[2,5]) {
-            varii = writeInt(i);
-            if(a[i,as] == 0) break;
-            else continue;
+foo: function integer() {
+             x: integer = 1;
+            y: integer = 2;
+            return x + y;
         }
-        

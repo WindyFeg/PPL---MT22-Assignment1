@@ -1,2 +1,5 @@
-
-        while (i < 10) ;
+foo: function string() {
+             x: string = "hello";
+             y: string = "world";
+            return x + " " + y;
+        }

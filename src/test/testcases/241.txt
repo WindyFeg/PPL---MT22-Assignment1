@@ -1,5 +1,4 @@
-
-        strin : string = "some kind of string \n ";
-        strin2 : string = "some kind of string2 \n ";
-        strin3 : string = strin :: strin2;
-        
+main: function void() {
+            a[1+2]=b[3-3];
+            : integer;
+            }

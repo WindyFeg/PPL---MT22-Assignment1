@@ -1,5 +1,1 @@
-
-        {
-            a, b: array [5] of auto;
-        }
-        
+add: function (a: integer, b: integer)

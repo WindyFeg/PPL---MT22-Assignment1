@@ -1,8 +1,2 @@
-
-        if(a>b) 
-            fund: function float(){
-                a = 1;
-                break;
-            }
-        ;
-        
+main: function void() {
+            a > b || c < d && e >= f}

@@ -1,6 +1,3 @@
-
-        do {
+foo: function boolean(x: integer, y: integer) {
+            return x == y;
         }
-        while (i < 10);
-        var = 2 + i;
-        

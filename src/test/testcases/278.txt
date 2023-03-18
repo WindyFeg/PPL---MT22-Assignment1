@@ -1,11 +1,7 @@
-
-        do {
-                var = 2 + i;
-            {
-                var = 2 + i;
-            }
-            return 2;
+foo: function integer(x: integer) {
+            return x * x;
         }
-        while (i < 10)
-        var = 2 + i;
-        
+
+        bar: function integer(x: integer) {
+            return foo(x) + foo(x + 1);
+        }

@@ -1,6 +1,3 @@
-
-        number: function integer(out n: integer) {
-            return n;
-                }
-        main: function void() {        }
-        
+main: function auto() {
+            z[1,3]= "hello" + "world";
+            }

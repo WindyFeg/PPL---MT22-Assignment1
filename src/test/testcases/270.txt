@@ -1,5 +1,6 @@
-
-        for (i = a, i < 10, i * b[2,5]) {
-            varii = writeInt(i) - true;
+foo: function void() {
+            x: integer = 1;
+            if (x == 1) {
+                putInt(x);
+            }
         }
-        

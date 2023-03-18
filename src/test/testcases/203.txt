@@ -1,2 +1,2 @@
-delta: integer;
-                    anpha, beta, gama, delta: boolean;
+ z: string = "bool" ; z: integer = 123_3_3;
+        main: function void() {}

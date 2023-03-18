@@ -1,1 +1,2 @@
-str, boo: boolean = "helo", true;
+main: function void() {
+            x,y,z: integer = 1,2;}

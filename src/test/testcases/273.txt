@@ -1,4 +1,5 @@
-
-        while (i < 10) 
-            while (i < 20) return 20; 
-        
+foo: function float() {
+             x: float = 1.0;
+             y: float = 2.0;
+            return x / y;
+        }

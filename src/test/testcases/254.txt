@@ -1,4 +1,1 @@
-
-            string;
-            array;
-        
+add: function integer a: integer, b: integer

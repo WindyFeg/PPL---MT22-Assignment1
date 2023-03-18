@@ -1,4 +1,3 @@
-
-        boll : boolean = true;
-        bool = !boll && boll; 
-        
+main: function void() {
+            x;
+            }

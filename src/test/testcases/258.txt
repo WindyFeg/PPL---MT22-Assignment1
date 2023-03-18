@@ -1,3 +1,2 @@
-
-        if(a>b) if(a>c) a= b + dunf(a[2.34442,4_3]);
-        
+main: function void() {
+            q(,);}

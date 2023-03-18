@@ -1,4 +1,4 @@
-
-        name____as: function integer(){}
-        name____ass: function integer() inherit name____as{}
-        
+main: function void() {
+        var a: real;
+        a = 3.14159265359;
+        }

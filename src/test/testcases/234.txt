@@ -1,1 +1,1 @@
-1+2+3-4/5*2.6;
+main: function void() { foo(3+x, 4.0/y); }

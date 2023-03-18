@@ -1,3 +1,7 @@
-main:function void(){
-            a = a[1,2];
-        }
+main: function void() {
+            while(funcz(5)!=3){
+                writeln("Hello mother fker");
+                hung3= [1];
+                continue;
+            }
+            }

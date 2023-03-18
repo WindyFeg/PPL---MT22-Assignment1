@@ -1,4 +1,2 @@
-
-        if(a>b) a= b + dunf();
-        else a = dunf() ;
-        
+main: function void() {
+            a[21];}

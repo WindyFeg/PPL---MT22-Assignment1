@@ -24,6 +24,11 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#atomictype.
+    def visitAtomictype(self, ctx:MT22Parser.AtomictypeContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#arithmetricop.
     def visitArithmetricop(self, ctx:MT22Parser.ArithmetricopContext):
         return self.visitChildren(ctx)
@@ -44,8 +49,8 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#demention.
-    def visitDemention(self, ctx:MT22Parser.DementionContext):
+    # Visit a parse tree produced by MT22Parser#dimension.
+    def visitDimension(self, ctx:MT22Parser.DimensionContext):
         return self.visitChildren(ctx)
 
 
@@ -59,31 +64,6 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MT22Parser#condeoperand.
-    def visitCondeoperand(self, ctx:MT22Parser.CondeoperandContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#subcondexpression.
-    def visitSubcondexpression(self, ctx:MT22Parser.SubcondexpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#condexpression.
-    def visitCondexpression(self, ctx:MT22Parser.CondexpressionContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#condexpression_logic.
-    def visitCondexpression_logic(self, ctx:MT22Parser.Condexpression_logicContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MT22Parser#condex_unary.
-    def visitCondex_unary(self, ctx:MT22Parser.Condex_unaryContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MT22Parser#subexpression.
     def visitSubexpression(self, ctx:MT22Parser.SubexpressionContext):
         return self.visitChildren(ctx)
@@ -91,6 +71,31 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#expression.
     def visitExpression(self, ctx:MT22Parser.ExpressionContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_relat.
+    def visitExpression_relat(self, ctx:MT22Parser.Expression_relatContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_logic.
+    def visitExpression_logic(self, ctx:MT22Parser.Expression_logicContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_bina1.
+    def visitExpression_bina1(self, ctx:MT22Parser.Expression_bina1Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_bina2.
+    def visitExpression_bina2(self, ctx:MT22Parser.Expression_bina2Context):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#expression_unary.
+    def visitExpression_unary(self, ctx:MT22Parser.Expression_unaryContext):
         return self.visitChildren(ctx)
 
 
@@ -244,6 +249,11 @@ class MT22Visitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by MT22Parser#variabledeclassign.
+    def visitVariabledeclassign(self, ctx:MT22Parser.VariabledeclassignContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by MT22Parser#variabledecls.
     def visitVariabledecls(self, ctx:MT22Parser.VariabledeclsContext):
         return self.visitChildren(ctx)
@@ -261,6 +271,11 @@ class MT22Visitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MT22Parser#arraytype.
     def visitArraytype(self, ctx:MT22Parser.ArraytypeContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MT22Parser#decls.
+    def visitDecls(self, ctx:MT22Parser.DeclsContext):
         return self.visitChildren(ctx)
 
 

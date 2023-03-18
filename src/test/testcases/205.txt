@@ -1,1 +1,2 @@
-a, b, c, d: integer = 3, 4, 6;
+main: function void() {
+            x:integer = 21;}

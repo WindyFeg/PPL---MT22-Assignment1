@@ -1,2 +1,1 @@
-str, boo: string = "helo", true;
-        str, boo: boolean = "helo", false;
+x,f_2: integer = 3,2; 

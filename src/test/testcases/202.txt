@@ -1,1 +1,1 @@
-array [2, 3] of integer
+x: void; y: float = 6.42; z: auto; k: boolean = false;

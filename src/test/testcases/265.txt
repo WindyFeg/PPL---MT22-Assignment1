@@ -1,7 +1,8 @@
-
-        for (i = a, true, i * b[2,5]) {
-            varii = writeInt(i);
-            if(a[i] == 0) break;
-            else continue;
+baz: function float(x: float, y: float) {
+            if (x > y) {
+                return x;
+            }
+            else {
+                return y;
+            }
         }
-        

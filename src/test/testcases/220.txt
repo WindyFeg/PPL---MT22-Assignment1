@@ -1,6 +1,3 @@
-
-number: function stringb(out n: integer) {
-return n;
-}
-main: function void() {        }
-        
+main: function auto() {
+            z[1,3]= y[z];
+            }

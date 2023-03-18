@@ -1,2 +1,3 @@
-tenfunction:function void(){
-        }
+main: function void() {
+            for(i=11+4, i<8 && i>6, i+2-0.5){ writeInt(i);}
+            }

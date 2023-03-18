@@ -1,7 +1,11 @@
-
-        for (i = a, i <= 10.0, i * b[2,5]) {
-            varii = writeInt(i);
-            if(a[i] == 0) break;
-            else continue;
+bar: function void() {
+            if (x > y) {
+                print("x is greater than y");
+            }
+            else if (y > x) {
+                print("y is greater than x");
+            }
+            else {
+                print("x and y are equal");
+            }
         }
-        

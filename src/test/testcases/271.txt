@@ -1,6 +1,5 @@
-
-        while (i < 10) 
-            writeInt(i);
-if(a[i] == 0) break;
-else continue;
-        
+foo: function boolean() {
+             x: boolean = true;
+             y: boolean = false;
+            return x && y || !x && !y;
+        }

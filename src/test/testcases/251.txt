@@ -1,9 +1,1 @@
-
-        {
-r, s: integer;
-r = 2.0;
-a, b: array [5] of integer;
-s = r * r * myPI;
-a[0] = s;
-}
-        
+add function integer (a: integer, b: integer)

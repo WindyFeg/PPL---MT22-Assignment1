@@ -1,2 +1,4 @@
-i=1;
-        i = i < 1;
+main: function void() {
+           do { write("hello");}
+            
+            }

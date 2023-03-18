@@ -1,8 +1,4 @@
-
-        if(a[2,i]>a[b[2,5_6]]) 
-            for (i = 1, i < 10, i + 1) {
-                writeInt(i);
-                if(a[i] == 0) return 0;
-            }
-        else a = 2;
-        
+main: function auto(out i: auto){
+return i + "
+some string;";
+}

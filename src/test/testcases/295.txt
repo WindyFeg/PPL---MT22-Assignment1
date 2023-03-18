@@ -1,5 +1,3 @@
-func1_213.2: function array()
-                    {
-                        vassse_weAs: array [1,1,0,0] of string = {{{{}}}};
-                    }
-                
+main: function void() {
+            x: array [3] of float = a[1];
+            }
