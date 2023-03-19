@@ -38,8 +38,8 @@ expression_relat: expression_logic relationalop expression_logic |expression_log
 expression_logic: expression_logic (AND|OR) expression_bina1|expression_bina1;
 expression_bina1: expression_bina1 (PLUS|MINU) expression_bina2|expression_bina2;
 expression_bina2: expression_bina2 (MUTI|DIVI|MODU) expression_unary | expression_unary;
-expression_unary: NOT operand
-| MINU operand
+expression_unary: NOT expression_unary
+| MINU expression_unary
 | indexexpression
 | operand
 ;
@@ -60,7 +60,7 @@ indexop:LSB expressionlist RSB;
 
 //? arguement add-on
 arguement: expression;
-functionmainprot:MAIN COL FUNCTION (VOID|AUTO) LB parameterlist? RB (INHERIT ID)?;
+functionmainprot:MAIN COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 functionprot: ID COL FUNCTION (VOID|vartype) LB parameterlist? RB (INHERIT ID)?;
 // ?add-on not found in mt22
 functionbody: blockstatement;
@@ -103,7 +103,7 @@ breakstatement: BREAK SEM;
 
 continuestatement: CONTINUE SEM;
 
-returnstatement: RETURN expression SEM;
+returnstatement: RETURN expression? SEM;
 
 callstatement: ID LB arguementlist? RB SEM;
 

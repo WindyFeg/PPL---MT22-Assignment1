@@ -1,11 +1,5 @@
-bar: function void() {
-            if (x > y) {
-                print("x is greater than y");
+/* main function */
+            factor : integer = 10.0;
+            main: function auto () {
+                a = "@#$&	^@$(@(ahs\"ash\"%%@&@\"dsad\"123&^@@";
             }
-            else if (y > x) {
-                print("y is greater than x");
-            }
-            else {
-                print("x and y are equal");
-            }
-        }

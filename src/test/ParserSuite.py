@@ -415,17 +415,11 @@ return i + "\nsome string;";
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 263))
     def test_ran4(self):
-        input = """bar: function void() {
-            if (x > y) {
-                print("x is greater than y");
-            }
-            else if (y > x) {
-                print("y is greater than x");
-            }
-            else {
-                print("x and y are equal");
-            }
-        }"""
+        input = """/* main function */
+            factor : integer = 10.0;
+            main: function auto () {
+                a = "@#$&\t^@$(@(ahs\\"ash\\"%%@&@\\"dsad\\"123&^@@";
+            }"""
         expect = "successful"
         self.assertTrue(TestParser.test(input, expect, 264))
     def test_rad5(self):
@@ -671,6 +665,72 @@ return i + "\nsome string;";
             }"""
         expect = "Error on line 2 col 12: string"
         self.assertTrue(TestParser.test(input, expect, 299))
+    
+    def test_300(self):
+        input = """//a
+/*
+*/
+x, y: integer = 65, 88;
+fact: function integer (n: integer) {
+    if (1) if (1) a(); else if (b) if (c) b(); else p(p(3),p());
+    if (n==0) return 1;
+    else return n * fact(n-1);
+    a = ((1 < 2) + (1 <= 2) + (1 > 2)+ (1 != 2)+ (1 == 2)) >= a(a(1));
+
+}
+inc: function void (out n: integer, delta: integer) inherit _____a {
+    n = n + !!!delta * --3 / a[1,2,3,4,5];
+    a = !!!---a();
+    b();
+    a = 1.2 + a + b(n-1,a,a(d-1), a[1,1,1], {}) - c * d::e || {} - -a && !!9 % a / 2 == 2;
+}
+
+sd: integer = true::false;
+if_func: function auto (inherit out n: integer, inherit delta: array[3] of boolean) {
+    if (a) while(a) while(a) while(a) do {} while("a"); else break;
+    for(x=x,x,x) if (a) if (b) continue;
+    //a = b= b= b= b=b= c= d= j[j[1]];
+    delta: array[9,9,9,9] of boolean;
+    a = a && b || !!!v;
+    a = {1,2,3,4} :: 2 * --3;
+    if (a == 0) {if (a == 1) a = 1;} else a = 3;
+
+    if (b == 0) if (b == 1) a = 1; else b = 3;
+    return ---1 + foo(a) * 9;
+    a = !true + false;
+    for (a[1] = 3, a == 9, a < 9) m = n::p;
+
+}
+
+main: function void() {
+    delta: integer = fact(3);
+    inc(x, delta);
+    printInteger(x);
+    m = a + b + v;
+    a, b, c, d: integer = 3::3.3, 4e4, 1.6e9, 10_2_2;
+    a, b, c, d, e: string = 3, 4, true, !10, 4 + 2;
+    a[0,2,3] = s;
+    while (1 == 2) {
+        a = 1 + 3 - 9;
+    }
+    a = b[3];
+    continue;
+    break;
+    {
+        return 1;
+    }
+    do {
+        for (x = 3,x ,x) {
+            for (x = 3, "conga" ,true/false) a[9] = 0;
+        }
+        while (!!a) {
+            while (a) a[3] = b[3];
+        }
+    } while ({1::2,2,3,4} * {1,2} + a[2] + a());    
+}
+"""
+        expect = "Success"
+        self.assertTrue(TestParser.test(input, expect, 300))
 
     
     
